@@ -1,1 +1,68 @@
-
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>나만의 그림책 만들기</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7fc;color:#29364d;font-family:"Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.55}
+header{background:linear-gradient(120deg,#dce8ff,#f5e9ff);text-align:center;padding:28px 16px}h1{margin:0;font-size:clamp(25px,5vw,36px)}header p{margin:6px 0 0;color:#52617a}
+main{max-width:850px;margin:22px auto;padding:0 14px 45px}.steps{display:flex;gap:7px;margin-bottom:16px}.step{flex:1;text-align:center;padding:10px 3px;border-radius:12px;background:#e8ecf4;color:#788398;font-weight:bold;font-size:13px}.step.active{background:#5578e8;color:white}.step.done{background:#dff3e8;color:#26764a}
+.panel{background:white;border:1px solid #e3e8f0;border-radius:20px;padding:clamp(18px,4vw,28px);box-shadow:0 8px 24px #26334a0a}h2{margin:0 0 6px;font-size:24px}.intro{margin:0 0 20px;color:#68758a}
+label{display:block;font-weight:bold;margin:16px 0 7px}input,textarea,select{width:100%;padding:13px;border:1.5px solid #d9e0ec;border-radius:12px;font:inherit;color:#29364d;background:white}textarea{min-height:90px;resize:vertical}input:focus,textarea:focus,select:focus{outline:3px solid #dce5ff;border-color:#5578e8}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.tip{background:#fff4c7;border-radius:13px;padding:13px 15px;margin:16px 0;font-size:14px}.actions{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:23px}
+button{border:0;border-radius:12px;padding:12px 17px;font:inherit;font-weight:bold;cursor:pointer;background:#5578e8;color:white}button.secondary{background:#edf0f6;color:#3c4a61}button.soft{background:#edf2ff;color:#3658c7}button.add{background:#e7f7ee;color:#26764a}.status{font-size:13px;color:#26764a;margin-right:auto}
+.page-card{border:1.5px solid #e3e8f0;border-radius:16px;padding:16px;margin:15px 0;background:#fcfdff}.page-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.page-head h3{margin:0}.page-card textarea{min-height:78px}.small{font-size:13px;color:#68758a}.preview{white-space:pre-wrap;background:#f7f8fc;border:1px dashed #cbd5e5;border-radius:12px;padding:13px;font-size:14px}.hidden{display:none!important}.foot{text-align:center;color:#7b8798;font-size:12px;margin-top:18px}
+@media(max-width:600px){.row{grid-template-columns:1fr}.step{font-size:11px}.actions button{flex:1}}
+@media print{header,.steps,.actions,.tip,.foot,button{display:none!important}body{background:white}.panel{box-shadow:none;border:0}.hidden{display:none!important}}
+</style>
+</head>
+<body>
+<header><h1>📚 나만의 그림책 만들기</h1><p>생각을 적고, 주인공을 만들고, 한 장면씩 그림책을 완성해요!</p></header>
+<main>
+<div class="steps"><div class="step active" id="tab1">1. 이야기</div><div class="step" id="tab2">2. 캐릭터</div><div class="step" id="tab3">3. 페이지 그림</div><div class="step" id="tab4">4. 완성</div></div>
+<section class="panel" id="screen1">
+<h2>🌱 1단계. 어떤 이야기를 만들까요?</h2><p class="intro">그림책의 주제를 정해요. 짧게 적어도 괜찮아요!</p>
+<label for="topic">이야기 주제</label><input id="topic" placeholder="예: 용기를 내어 친구를 돕는 토끼 이야기">
+<label for="message">이야기에 담고 싶은 생각</label><textarea id="message" placeholder="예: 작은 용기도 누군가에게 큰 힘이 될 수 있어요."></textarea>
+<div class="row"><div><label for="reader">누가 읽을까요?</label><select id="reader"><option>초등학생</option><option>유치원 친구들</option><option>가족과 친구</option><option>누구나</option></select></div><div><label for="pageCount">몇 페이지로 만들까요?</label><select id="pageCount"><option value="4">4페이지</option><option value="6" selected>6페이지</option><option value="8">8페이지</option><option value="10">10페이지</option></select></div></div>
+<div class="tip">💡 주제가 떠오르지 않으면 “우정”, “모험”, “동물”, “환경”, “학교생활”처럼 좋아하는 낱말부터 시작해 보세요.</div>
+<div class="actions"><span class="status">입력한 내용은 자동 저장돼요.</span><button onclick="go(2)">다음: 캐릭터 만들기 →</button></div>
+</section>
+<section class="panel hidden" id="screen2">
+<h2>🧑‍🎨 2단계. 이야기 속 친구를 만들어요</h2><p class="intro">주인공의 모습을 상상해 적어 주세요. 떠오르는 것만 적어도 돼요.</p>
+<div class="row"><div><label for="charName">주인공 이름</label><input id="charName" placeholder="예: 몽이"></div><div><label for="charKind">누구인가요?</label><input id="charKind" placeholder="예: 작은 흰 토끼"></div></div>
+<div class="row"><div><label for="charLook">생김새와 옷</label><textarea id="charLook" placeholder="예: 긴 귀, 파란 멜빵바지, 빨간 가방"></textarea></div><div><label for="charPersonality">성격과 좋아하는 것</label><textarea id="charPersonality" placeholder="예: 호기심이 많고 친구를 잘 도와줘요."></textarea></div></div>
+<label for="artStyle">그림 스타일</label><select id="artStyle"><option>따뜻하고 귀여운 3D 그림책</option><option>부드러운 수채화 그림책</option><option>파스텔 색연필 그림</option><option>찰흙으로 만든 클레이 3D</option><option>동화 같은 디지털 일러스트</option></select>
+<div class="tip">⭐ 페이지마다 같은 주인공이 나오도록 이름과 생김새를 똑같이 사용해요.</div>
+<div class="actions"><button class="secondary" onclick="go(1)">← 이전</button><span class="status">자동 저장 중</span><button onclick="go(3)">다음: 페이지 만들기 →</button></div>
+</section>
+<section class="panel hidden" id="screen3">
+<h2>🖼️ 3단계. 페이지마다 장면을 만들어요</h2><p class="intro">각 페이지의 이야기와 그림 장면을 적어 주세요. 한 장면씩 카드를 채우면 돼요.</p>
+<div class="tip">✏️ ‘이야기’에는 어떤 일이 일어나는지, ‘그림 장면’에는 그림에 무엇이 보이면 좋을지 적어요.</div>
+<div id="pages"></div><button class="add" onclick="addPage()">＋ 페이지 추가하기</button>
+<div class="actions"><button class="secondary" onclick="go(2)">← 이전</button><span class="status">입력할 때마다 자동 저장돼요.</span><button onclick="go(4)">다음: 그림책 확인 →</button></div>
+</section>
+<section class="panel hidden" id="screen4">
+<h2>🎉 4단계. 나의 그림책을 확인해요</h2><p class="intro">내용을 확인하고, 페이지 그림을 만들 때 사용할 문장을 복사해 보세요.</p>
+<div id="summary" class="preview"></div><label>페이지별 그림 만들기 문장</label>
+<p class="small">이 웹앱은 내용을 저장하고 그림 만들기 문장을 준비해요. 실제 그림은 ChatGPT 등의 이미지 생성 기능에 문장을 붙여넣어 만들 수 있어요.</p><div id="promptList"></div>
+<div class="actions"><button class="secondary" onclick="go(3)">← 페이지 수정하기</button><button class="soft" onclick="downloadData()">내 그림책 파일 저장하기 ⬇</button><button onclick="window.print()">인쇄하기</button></div>
+<div class="tip">💾 내용은 이 기기의 브라우저에 자동 저장돼요. 다른 기기에서도 사용하려면 ‘내 그림책 파일 저장하기’를 눌러 파일을 보관하세요.</div>
+</section><p class="foot">나의 생각과 상상력으로 만드는 세상에 하나뿐인 그림책</p>
+</main>
+<script>
+const fields=['topic','message','reader','pageCount','charName','charKind','charLook','charPersonality','artStyle'];let pages=[];
+const $=id=>document.getElementById(id);
+function data(){let d={};fields.forEach(k=>d[k]=$(k).value);d.pages=pages;return d}
+function save(){try{localStorage.setItem('pictureBookMaker',JSON.stringify(data()))}catch(e){}}
+fields.forEach(k=>$(k).addEventListener('input',save));
+function load(){try{let d=JSON.parse(localStorage.getItem('pictureBookMaker')||'null');if(!d)return;fields.forEach(k=>{if(d[k]!==undefined)$(k).value=d[k]});pages=Array.isArray(d.pages)?d.pages:[]}catch(e){}}
+function go(n){if(n===2&&!$('topic').value.trim()){alert('먼저 이야기 주제를 적어 주세요!');$('topic').focus();return}if(n===3&&!$('charName').value.trim()){alert('주인공 이름을 적어 주세요!');$('charName').focus();return}if(n===3&&pages.length===0){for(let i=0;i<Number($('pageCount').value);i++)pages.push({story:'',scene:''});renderPages()}if(n===4){save();renderSummary()}for(let i=1;i<=4;i++){$('screen'+i).classList.toggle('hidden',i!==n);$('tab'+i).className='step'+(i===n?' active':i<n?' done':'')}window.scrollTo({top:0,behavior:'smooth'});save()}
+function renderPages(){let wrap=$('pages');wrap.innerHTML='';pages.forEach((p,i)=>{let c=document.createElement('div');c.className='page-card';c.innerHTML=`<div class="page-head"><h3>📖 ${i+1}페이지</h3><button class="secondary" type="button" data-del="${i}">삭제</button></div><label>이 페이지의 이야기</label><textarea data-story="${i}" placeholder="예: 몽이는 숲속에서 길을 잃은 다람쥐를 만났어요."></textarea><label>그림에는 어떤 모습이 나오면 좋을까요?</label><textarea data-scene="${i}" placeholder="예: 초록 숲길에서 작은 토끼가 다람쥐에게 손을 내밀어요."></textarea><p class="small">짧고 쉽게 적어 보세요.</p>`;wrap.appendChild(c);c.querySelector('[data-story]').value=p.story||'';c.querySelector('[data-scene]').value=p.scene||'';c.querySelector('[data-story]').addEventListener('input',e=>{pages[i].story=e.target.value;save()});c.querySelector('[data-scene]').addEventListener('input',e=>{pages[i].scene=e.target.value;save()});c.querySelector('[data-del]').addEventListener('click',()=>{if(pages.length===1){alert('페이지는 한 장 이상 있어야 해요.');return}pages.splice(i,1);renderPages();save()})})}
+function addPage(){pages.push({story:'',scene:''});renderPages();save()}
+function prompt(i){let d=data(),p=pages[i];return `어린이 그림책 ${i+1}페이지 그림을 만들어 주세요.\n그림 스타일: ${d.artStyle}\n주인공: ${d.charName}, ${d.charKind}. 생김새와 옷: ${d.charLook}. 성격: ${d.charPersonality}.\n이 페이지의 이야기: ${p.story}\n그림 장면: ${p.scene}\n앞 페이지와 같은 주인공의 얼굴, 옷, 색상을 유지해 주세요. 따뜻하고 이해하기 쉬운 한 장면으로 표현해 주세요. 그림 안에는 글자, 말풍선, 제목을 넣지 말고 정사각형 1:1 비율로 만들어 주세요.`}
+function renderSummary(){let d=data();$('summary').textContent=`이야기 주제: ${d.topic}\n이야기에 담고 싶은 생각: ${d.message}\n읽을 사람: ${d.reader}\n주인공: ${d.charName} (${d.charKind})\n생김새와 옷: ${d.charLook}\n성격: ${d.charPersonality}\n그림 스타일: ${d.artStyle}\n페이지 수: ${pages.length}페이지`;let list=$('promptList');list.innerHTML='';pages.forEach((p,i)=>{let box=document.createElement('div');box.className='page-card';let h=document.createElement('h3');h.textContent=`${i+1}페이지 그림 문장`;let pre=document.createElement('div');pre.className='preview';pre.textContent=prompt(i);let b=document.createElement('button');b.className='soft';b.textContent='이 페이지 문장 복사';b.onclick=()=>copy(prompt(i));box.append(h,pre,b);list.append(box)})}
+async function copy(t){try{await navigator.clipboard.writeText(t);alert('복사했어요! 그림 생성 도구에 붙여넣어 보세요.')}catch(e){alert('문장을 선택해 복사해 주세요.')}}
+function downloadData(){let blob=new Blob([JSON.stringify(data(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='나의_그림책_작업파일.json';a.click();URL.revokeObjectURL(a.href)}
+load();if(!pages.length)for(let i=0;i<Number($('pageCount').value);i++)pages.push({story:'',scene:''});renderPages();save();
+</script></body></html>
